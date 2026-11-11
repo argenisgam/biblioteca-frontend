@@ -16,6 +16,17 @@ Aplicación independiente para gestionar el catálogo de libros, lectores y pré
 
 Si el backend tiene CORS restringido mediante `HOST_ORIGIN`, configura esa variable en su `.env` con el origen de Vite, por ejemplo `http://localhost:5173`.
 
+## Construir imagen Docker
+
+Desde esta carpeta, construye la imagen indicando la URL pública de la API. Vite incorpora esta variable durante el build:
+
+```sh
+docker build --build-arg VITE_API_URL=https://api.ejemplo.com -t biblioteca-frontend .
+docker run --rm -p 8080:80 biblioteca-frontend
+```
+
+Abre `http://localhost:8080`. `VITE_API_URL` es obligatorio para evitar que la imagen de producción apunte por accidente a `localhost:3000`. El backend también debe permitir el origen público del frontend en su configuración CORS.
+
 ## Funciones
 
 - Resumen con el catálogo, lectores, préstamos activos y devoluciones.
